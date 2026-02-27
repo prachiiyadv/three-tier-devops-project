@@ -1,35 +1,29 @@
-name: CI Pipeline - Backend & Frontend
+name: CI Pipeline
 
-# Trigger on push to main branch
 on:
   push:
     branches:
       - main
 
 jobs:
-  build-and-push:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout repository
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # Step 2: Login to DockerHub using GitHub Secrets
       - name: Login to DockerHub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+        run: echo "${{ secrets.prachiiydv@123 }}" | docker login -u "${{ secrets.prachiiy258 }}" --password-stdin
 
-      # Step 3: Build & Push Backend Image
-      - name: Build & Push Backend
-        run: |
-          docker build -t prachiiy258/backend:v1 ./backend
-          docker push prachiiy258/backend:v1
+      - name: Build Backend Image
+        run: docker build -t prachiiy258/backend:v1 ./backend
 
-      # Step 4: Build & Push Frontend Image
-      - name: Build & Push Frontend
-        run: |
-          docker build -t prachiiy258/frontend:v1 ./frontend
-          docker push prachiiy258/frontend:v1
+      - name: Push Backend Image
+        run: docker push prachiiy258/backend:v1
+
+      - name: Build Frontend Image
+        run: docker build -t prachiiy258/frontend:v1 ./frontend
+
+      - name: Push Frontend Image
+        run: docker push prachiiy258/frontend:v1
